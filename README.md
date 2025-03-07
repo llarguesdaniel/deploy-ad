@@ -1,3 +1,4 @@
+
 # deploy-ad
 <p align="center">
 <img src="https://i.imgur.com/pU5A58S.png" alt="Microsoft Active Directory Logo"/>
@@ -42,63 +43,66 @@ This tutorial outlines the implementation of on-premises Active Directory within
 1. ***Setup Domain Controller***
   - Navigate to the Azure Portal and create a new Resource Group for the lab environment.
 
-<p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
+![rgname](https://github.com/user-attachments/assets/6745f8cd-bfcd-4c6d-a685-04594e6369ee)
+
 
 2. ***Create a Virtual Network and Subnet***
-     
-<p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
+ - Choose previously made Resource Group
+ - Set up Virtual Network and Subnet
+![vnname](https://github.com/user-attachments/assets/59e3ce40-0ddf-45b2-bb5a-b9583a237dab)
+
+
 
 3. ***Create the Domain Controller VM (Windows Server 2022)***
-  
-<p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
+  - Name Virtual Machine `DC-1`
+  - Verify VM is on the Virtual Network created
+![vmnamesize](https://github.com/user-attachments/assets/c5f0f4bd-c14f-4705-a858-ba6e7daa7ec6)
+
+![vmuserandagree](https://github.com/user-attachments/assets/cb28b196-dc77-4192-88ca-ba465bc4d4e9)
 
  4. ***Set Static Private IP for DC-1***
-     
-<p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
+  - Once VM is deployed, go to `DC-1` Network Interface Card (NIC)
+  - Change Private IP from Dynamic to Static 
+![dc1networksettings2](https://github.com/user-attachments/assets/5d78d5f7-3399-4566-ad63-4eed922e7f06)
+
+![nicstaticip](https://github.com/user-attachments/assets/5b9aa34f-8191-4918-b505-e11c2e9da39e)
 
 5. ***Disable Windows Firewall***
+  - Log in to `DC-1`
+  - Navigate to `Windows Firewall`
+  - Disable all Firewall settings
+![dcfirewallsettings](https://github.com/user-attachments/assets/cda79919-1528-4665-b90f-66eeb462e567)
 
-<p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
 
 1. ***Create the Client VM (Windows 10)***
+  - Name the VM: `Client-1`
+![clinetnamesize](https://github.com/user-attachments/assets/dd83a4a3-10ad-46bd-810c-8ce23d2ccbf2)
 
-<p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
+![clientpassword](https://github.com/user-attachments/assets/0738d722-f00a-434d-b194-c212b21f0f75)
 
  2. ***Attach Client-1 to the Same Region and Virtual Network*** 
+  - Ensure `Client-1` is in the same Virtual Network and Subnet as `DC-1`
+![clientsubnet](https://github.com/user-attachments/assets/68d15794-2660-45c6-81db-eaae4aed0b89)
 
-<p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
 
 3. ***Set Client-1’s DNS Settings***
-     
-<p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
+  - Change `Client-1` DNS Settings to match `DC-1` Private IP Address
+![clientnic](https://github.com/user-attachments/assets/9cf2746d-92e7-41a8-9a19-b941c472fa49)
+
+![clientdns](https://github.com/user-attachments/assets/c447eade-701c-48a0-8c29-c75b564111f3)
 
 4. ***Test Connectivity***
+  - Login to `Client 1`
+  - Open `Powershell`
+  - Ping `DC-1`
+![clientping](https://github.com/user-attachments/assets/f312367e-096f-4307-beb2-b3d9b4fd7b6b)
 
-<p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
 
 5. ***Verify DNS Settings***
+  - Run `ipconfig /all` to verify DNS 
+![clinetipconfig](https://github.com/user-attachments/assets/ff45df57-6bd6-401a-ac83-df5406efc892)
 
-<p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
+
 <br />
 
 
