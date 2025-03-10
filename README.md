@@ -109,24 +109,62 @@ This tutorial outlines the implementation of on-premises Active Directory within
 ---
 
 <h3><a id="Deploy_Active_Directory">Part 2: Deploy Active Directory</a></h3>
+
+Install Active Directory
+1Log in to DC-1
+2install Active Directory Domain Services
+3Promote `DC-1` as a Domain Controller and setup a new forest (mydomain.com)
+4Restart DC-1 and log in as user: mydomain.com\labuser
+
 <p>
 <img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 </p>
+
+Create a Domain Admin user
+1Navigate to Active Directory Users and Computers (ADUC)
+2create an Organizational Unit (OU) called “_EMPLOYEES” and  named “_ADMINS”
+3Create a new employee named “Jane Doe”
+namejane doe
+username “jane_admin”
+password Cyberlab123!
+4Add jane_admin to the “Domain Admins” Security Group
+5Log out of DC-1 and log back in as “mydomain.com\jane_admin”
+
 <p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 </p>
+
+Join Client-1 to your domain
+1Login to Client-1 as the original local admin (labuser) and join it to the domain (computer will restart)
+2Login to the Domain Controller and verify Client-1 shows up in ADUC
+3Create a new OU named “_CLIENTS” and drag Client-1 into there
+
+<p>
+<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+</p>
+
 <br />
 
 
 ---
 
 <h3><a id="Create_Users_with_Powershell">Part 3: Create Users with Powershell</a></h3>
+
+Setup Remote Desktop for non-administrative users 
+1Log into Client-1 as mydomain.com\jane_admin
+2Open system properties
+Click “Remote Desktop”
+Allow “domain users” access to remote desktop
+
 <p>
 <img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 </p>
-<p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-</p>
+
+Create a bunch of additional users and attempt to log into client-1 with one of the users
+Login to DC-1 as jane_admin
+Open PowerShell_ise as an administrator
+attempt to log into Client-1 with one of the accounts (take note of the password in the script)
+
 <br />
 
 ---
